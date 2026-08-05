@@ -9,7 +9,7 @@ const ClientPanel = ({ caseData }) => {
           Create Case
         </button>
       </div>
-      <div className="flex flex-col  gap-5 lg:flex-row lg:p-5">
+      <div className="flex flex-col  gap-5 lg:flex-row lg:p-5 ">
         <div className=" w-11/12 bg-gray-50 rounded-sm shadow-lg m-auto ">
           <div className="flex gap-5 justify-start items-center  p-2 m-2">
             <div className="bg-gray-300 rounded-lg">
@@ -33,7 +33,7 @@ const ClientPanel = ({ caseData }) => {
             </div>
             <div className="flex flex-col">
               <p className="text-xl font-bold text-gray-900 ">
-                {caseData?.filter((c)=> c.Status === "NEW").length}
+                {caseData?.filter((c)=> c?.caseStatus === "NEW").length}
               </p>
               <h5 className="text-sm font-semibold text-gray-400 mb-1">
                 New Cases
@@ -48,8 +48,8 @@ const ClientPanel = ({ caseData }) => {
               <i className="fa-regular fa-circle-check text-3xl text-green-400 m-2"></i>
             </div>
             <div className="flex flex-col">
-              <p className="text-xl font-bold text-gray-900 ">
-                {caseData?.filter((c)=> c.Status === "COMPLETED").length}
+              <p className="text-xl font-bold text-gray-900">
+                {caseData?.filter((c)=> c?.caseStatus === "COMPLETED").length}
               </p>
               <h5 className="text-sm font-semibold text-gray-400 mb-1">
                 Comepleted Cases
@@ -57,6 +57,7 @@ const ClientPanel = ({ caseData }) => {
             </div>
           </div>
         </div>
+        
       </div>
     </>
   );
