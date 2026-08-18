@@ -2,22 +2,22 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const ClientCaseTable = ({caseData, fetchCases})=>{
+const LawyerCaseTable = ({caseData, fetchCases})=>{
 
     const user= JSON.parse(localStorage.getItem("user")) || {}
     const [isModal, setIsModal] = useState(false);
     const [singleCase, setSingleCase] = useState({});
+    const [lawyerResponse, setLawyerResponse] = useState("");
 
+    const UpdateCaseStatus = async(status)=>{
 
-    const UpdateStatus = async(status)=>{
-
-        const body = {
-            Status : status
-        }
-
+      const body = {
+        LawyerResponse : lawyerResponse,
+        Status : status
+      }
        try {
 
-  const response = await axios.put(`http://127.0.0.1:7000/client/UpdateStatus/${singleCase?._id}`,body,{validateStatus:()=>true,
+  const response = await axios.put(`http://127.0.0.1:7000/lawyer/acceptRequest/${singleCase?._id}`,body,{validateStatus:()=>true,
             headers :{
                 Authorization : `Bearer ${user.token}`
             }
@@ -28,6 +28,7 @@ const ClientCaseTable = ({caseData, fetchCases})=>{
             setIsModal(false);
             toast.success(res.message);
             setSingleCase({});
+            setLawyerResponse("");
             fetchCases();
         } else{
             toast.error(res.message);
@@ -44,7 +45,7 @@ const ClientCaseTable = ({caseData, fetchCases})=>{
         <div className="w-full flex bg-gray-100">
             <div className="flex-1 md:p-2">
               <div className="flex justify-between items-center md:p-2">
-                <h1 className="text-lg font-serif font-bold text-gray-900 ">Manage Cases</h1>
+                <h1 className="text-lg font-serif font-bold text-gray-900 ">Manage Lawyer's Cases</h1>
                 <select className="border-0 outline-1 w-20 rounded-md px-2 py-1 shadow-sm">
                     <option >All</option>
                     <option>New</option>
@@ -171,22 +172,43 @@ const ClientCaseTable = ({caseData, fetchCases})=>{
                               <span className="text-xs bg-gray-200 px-3 py-1 rounded shadow">letter.pdf</span>
                             </div>
                           
-                            {
-                                singleCase?.caseStatus === "ONGOING"? 
-                                (
-                                  <div className="flex gap-4">
-                                      <button className="bg-red-500 text-black px-3 py-1 rounded shadow cursor-pointer"
-                                      onClick={()=>{
-                                        UpdateStatus("STOPED");
-                                      }}>Stop</button>
-
-                                      <button className="bg-green-400 text-gray-700 px-3 py-1 rounded shadow cursor-pointer" 
-                                       onClick={()=>{
-                                        UpdateStatus("COMPLETED");
-                                      }}>Complete</button>
-                                  </div>
-                                ) : null
-                            }
+                           
+                              {
+                                singleCase?.caseStatus   === "NEW" ? (
+                                    <>
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-sm text-gray-800 ">Lawyer's Remark</span>
+                                        <input type="text" placeholder="Enter Remark" className="w-[50%] p-1 text-sm text-gray-700 border rounded"
+                                        onKeyUp={(e)=>{
+                                            setLawyerResponse(e.target.value)
+                                        }}/>
+                                    
+                                    </div>
+                                    <div className="flex justify-center items-center">
+                                        <button className="bg-green-400 text-gray-700 px-3 py-1 rounded shadow cursor-pointer" onClick={()=>{
+                                        UpdateCaseStatus("ONGOING");
+                                      }} >Accept Request</button>
+                                    </div>
+                              </>  ) : singleCase?.caseStatus   === "ONGOING" ? (
+                                <>
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-sm text-gray-800 ">Lawyer's Remark</span>
+                                        <input type="text" placeholder="Enter Remark" className="w-[50%] p-1 text-sm text-gray-700 border rounded"
+                                        onKeyUp={(e)=>{
+                                            setLawyerResponse(e.target.value)
+                                        }}/>
+                                    
+                                    </div>
+                                    <div className="flex justify-center items-center">
+                                        <button className="bg-red-400 text-gray-700 px-3 py-1 rounded shadow cursor-pointer"
+                                        onClick={()=>{
+                                        UpdateCaseStatus("STOPED");
+                                      }} >Stop Case</button>
+                                    </div>
+                              </>  
+                              ): null
+                              }
+                          
                           </div>
                     </div>
                    
@@ -201,4 +223,4 @@ const ClientCaseTable = ({caseData, fetchCases})=>{
     )
 }
 
-export default ClientCaseTable;
+export default LawyerCaseTable;

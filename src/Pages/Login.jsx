@@ -34,10 +34,10 @@ const Login = () => {
           localStorage.setItem("user", JSON.stringify(res))
         
 
-          if (res.result.role === "ADMIN") {
+          if (res.result.role === "Admin") {
             navigate("/admin-dashboard");
           }
-           else if (res.result.role === "LAWYER") {
+           else if (res.result.role === "Lawyer") {
             navigate("/lawyer-dashboard");
           }
            else  {

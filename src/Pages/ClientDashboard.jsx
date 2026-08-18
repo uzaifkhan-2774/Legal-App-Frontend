@@ -129,7 +129,7 @@ const ClientDashboard = ()=>{
           </div>
 
           {
-            selectedPanel === "Dashboard" ? <ClientPanel caseData={caseData}/> : selectedPanel === "My Cases" ? <ClientCaseTable caseData={caseData} fetchCases={fetchCases}/> : <ClientCreateCase selectedPanel={selectedPanel} fetchCases={fetchCases}/>
+            selectedPanel === "Dashboard" ? <ClientPanel caseData={caseData}/> : selectedPanel === "My Cases" ? <ClientCaseTable caseData={caseData} fetchCases={fetchCases}/> : <ClientCreateCase setSelectedPanel={setSelectedPanel} fetchCases={fetchCases}/>
           }
         </div>
       </div>
