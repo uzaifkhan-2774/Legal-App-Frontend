@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { Form, useForm } from "react-hook-form";
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 const Register = ()=>{
@@ -33,7 +34,7 @@ const submitData = (data)=>{
     return toast.error("please enter correct password")
   }
 
-  axios.post("http://127.0.0.1:7000/auth/registration", payLoad, {validateStatus :()=> true})
+  axios.post(`${API_URL}/auth/registration`, payLoad, {validateStatus :()=> true})
   .then((response)=>{
     let res = response.data;
   

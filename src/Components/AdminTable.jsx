@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 const getStatuscolor = (status) => {
@@ -45,7 +46,7 @@ const AdminTable = ({ fetchLaywer, lawyerData }) => {
         AdminRemark : remark
       }
 
-      const response =  await axios.put(`http://127.0.0.1:7000/admin/updatelawyerstatus/${selectedLawyer._id}`,payLoad, {validateStatus:()=>true,
+      const response =  await axios.put(`${API_URL}/admin/updatelawyerstatus/${selectedLawyer._id}`,payLoad, {validateStatus:()=>true,
         headers :{
             Authorization : `Bearer ${token}`,
             "Content-Type" : "application/json"

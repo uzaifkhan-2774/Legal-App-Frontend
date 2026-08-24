@@ -4,6 +4,7 @@ import LawyerPanel from "../Components/LawyerPanel";
 import LawyerCaseTable from "../Components/LawyerCaseTable";
 import axios from "axios";
 import { toast } from "react-toastify";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const LawyerDashboard = ()=>{
 
@@ -27,7 +28,7 @@ const LawyerDashboard = ()=>{
  const fetchCases = async()=>{
 
       try{
-        const response = await axios.get("http://127.0.0.1:7000/lawyer/getAllCases", {validateStatus:()=>true,
+        const response = await axios.get(`${API_URL}/lawyer/getAllCases`, {validateStatus:()=>true,
           headers : {
             Authorization : `Bearer ${user.token}`
           }

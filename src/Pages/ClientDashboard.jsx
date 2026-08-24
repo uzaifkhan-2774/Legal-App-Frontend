@@ -5,6 +5,7 @@ import ClientCaseTable from "../Components/ClientCaseTable";
 import ClientCreateCase from "../Components/ClientCreateCase";
 import axios from "axios";
 import { toast } from "react-toastify";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const ClientDashboard = ()=>{
 
@@ -31,7 +32,7 @@ const ClientDashboard = ()=>{
  const fetchCases = async()=>{
 
       try{
-        const response = await axios.get("http://127.0.0.1:7000/client/MyCases", {validateStatus:()=>true,
+        const response = await axios.get(`${API_URL}/client/MyCases`, {validateStatus:()=>true,
           headers : {
             Authorization : `Bearer ${user.token}`
           }

@@ -4,6 +4,7 @@ import ClientCase from "./ClientCase";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const ClientCreateCase = ({ setSelectedPanel, fetchCases }) => {
 
@@ -72,7 +73,7 @@ const ClientCreateCase = ({ setSelectedPanel, fetchCases }) => {
 
     try {
       const resposnse = await axios.post(
-        "http://127.0.0.1:7000/client/CreateCase",
+        `${API_URL}/client/CreateCase`,
          formdata ,
         {
           validateStatus: () => true,

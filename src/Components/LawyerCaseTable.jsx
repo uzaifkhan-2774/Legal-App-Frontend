@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const LawyerCaseTable = ({caseData, fetchCases})=>{
 
@@ -17,7 +18,7 @@ const LawyerCaseTable = ({caseData, fetchCases})=>{
       }
        try {
 
-  const response = await axios.put(`http://127.0.0.1:7000/lawyer/acceptRequest/${singleCase?._id}`,body,{validateStatus:()=>true,
+  const response = await axios.put(`${API_URL}/lawyer/acceptRequest/${singleCase?._id}`,body,{validateStatus:()=>true,
             headers :{
                 Authorization : `Bearer ${user.token}`
             }

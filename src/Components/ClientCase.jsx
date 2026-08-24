@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react"
 import Select from "react-select";
 import { toast } from "react-toastify";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const ClientCase = ({caseData, setSelectedPanel, fetchCases})=>{
 
@@ -25,7 +26,7 @@ const ClientCase = ({caseData, setSelectedPanel, fetchCases})=>{
       }
 
        try{
-          const resposnse = await axios.put("http://127.0.0.1:7000/client/UpdateCase", body,
+          const resposnse = await axios.put(`${API_URL}/client/UpdateCase`, body,
          {validateStatus:()=>true,
          headers :{
             Authorization : `Bearer ${user.token}`

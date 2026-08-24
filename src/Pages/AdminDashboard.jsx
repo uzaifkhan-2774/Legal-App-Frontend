@@ -4,6 +4,7 @@ import AdminPanel from "../Components/AdminPanel";
 import AdminTable from "../Components/AdminTable";
 import axios from "axios";
 import { toast } from "react-toastify";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AdminDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user")) || [];
@@ -30,7 +31,7 @@ const AdminDashboard = () => {
      
     try{
        
-      const response = await axios.get("http://127.0.0.1:7000/admin/getallLawyer",
+      const response = await axios.get(`${API_URL}/admin/getallLawyer`,
          {validateStatus:()=> true,
           headers : {Authorization : `Bearer ${token}`}});
 

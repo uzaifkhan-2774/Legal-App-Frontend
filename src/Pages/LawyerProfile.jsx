@@ -2,6 +2,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const LawyerProfile = () => {
 
@@ -28,7 +29,7 @@ const LawyerProfile = () => {
 
    try{
 
-   const response =  await axios.post("http://127.0.0.1:7000/lawyer/createLawyerProfile", payload, {validateStatus : ()=> true})
+   const response =  await axios.post(`${API_URL}/lawyer/createLawyerProfile`, payload, {validateStatus : ()=> true})
       let res = response.data;
 
       if(res.success === true){
