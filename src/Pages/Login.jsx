@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Login = () => {
   
@@ -20,7 +21,7 @@ const Login = () => {
     // console.log(data);
 
     axios
-      .post("http://localhost:7000/auth/login", data, {
+      .post(`${API_URL}/auth/login`, data, {
         validateStatus: () => true,
       })
       .then((response) => {
